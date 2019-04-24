@@ -1,0 +1,12 @@
+__pycache__
+*.swp
+*.swo
+*.out
+*.kate-swp
+\#*\#
+.spyderworkspace
+.spyderproject
+**/.ipynb_checkpoints
+.mypy_cache
+.pytest_cache
+_*.py
