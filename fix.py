@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from base import (
-    MyZotero,
-    echo,
-    fetch_github_metadata,
-    lstrip_doi,
-    strip_braces,
-)
+from base import MyZotero, echo, fetch_github_metadata, lstrip_doi, strip_braces
 
 zot = MyZotero()
 
@@ -28,6 +22,8 @@ apply_transforms = {
         "url",
         "itemType",
         "title",
+        "shortTitle",
+        "date",
         "creators",
         "programmingLanguage",
         "rights",
@@ -35,4 +31,8 @@ apply_transforms = {
     ): fetch_github_metadata
 }
 delete_fields = ("websiteTitle",)
-zot.fix(items, apply_filters, apply_transforms, delete_fields, dry_run=True)
+to_process_item = lambda item: "fixed" not in item["meta"]
+#  to_process_item = (
+#      lambda item: "creators" not in item["data"] or not item["data"]["creators"]
+#  )
+zot.fix(items, apply_filters, apply_transforms, delete_fields, to_process_item, dry_run=False)
