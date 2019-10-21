@@ -4,14 +4,11 @@ from base import MyZotero, echo, fetch_github_metadata, lstrip_doi, strip_braces
 
 zot = MyZotero()
 
-thesis = zot.get_collection(
-    #  "thesis"
-    #  "paper_03_toy_model"
-    # "paper_04_swe"
+collection = zot.get_collection(
     "github-stars-ashwinvis"
 )
 # Get everything
-items = zot.everything(zot.collection_items(thesis["key"]))
+items = zot.everything(zot.collection_items(collection["key"]))
 apply_filters = {
     #  "Creators": (echo,)
     #  "DOI": (strip_braces, lstrip_doi),
@@ -23,6 +20,7 @@ apply_transforms = {
         "itemType",
         "title",
         "shortTitle",
+        "abstractNote",
         "date",
         "creators",
         "programmingLanguage",
@@ -35,4 +33,7 @@ to_process_item = lambda item: "fixed" not in item["meta"]
 #  to_process_item = (
 #      lambda item: "creators" not in item["data"] or not item["data"]["creators"]
 #  )
-zot.fix(items, apply_filters, apply_transforms, delete_fields, to_process_item, dry_run=False)
+zot.fix(
+    items, apply_filters, apply_transforms, delete_fields, to_process_item,
+    dry_run=False
+)

@@ -126,9 +126,9 @@ class MyGithub(Github):
 
             item_type = "computerProgram"
 
-            short_title = "/".join(url.split("/")[-2:])
+            title = short_title = "/".join(url.split("/")[-2:])
             repo = self.get_repo(short_title)
-            title = repo.description
+            abstract = repo.description
             date = repo.created_at.year
             lang = repo.language
 
@@ -161,6 +161,7 @@ class MyGithub(Github):
                 item_type,
                 title,
                 short_title,
+                abstract,
                 date,
                 creators,
                 lang,
